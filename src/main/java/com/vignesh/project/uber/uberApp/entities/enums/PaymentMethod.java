@@ -1,4 +1,5 @@
 package com.vignesh.project.uber.uberApp.entities.enums;
 
-public class PaymentMethod {
+public enum PaymentMethod {
+    CASH, WALLET
 }

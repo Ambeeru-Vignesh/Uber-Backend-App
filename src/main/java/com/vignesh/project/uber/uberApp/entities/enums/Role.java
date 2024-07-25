@@ -1,4 +1,5 @@
 package com.vignesh.project.uber.uberApp.entities.enums;
 
-public class Role {
+public enum Role {
+    ADMIN, DRIVER, RIDER
 }
