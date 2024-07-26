@@ -6,7 +6,7 @@ import com.vignesh.project.uber.uberApp.strategies.DriverMatchingStrategy;
 
 import java.util.List;
 
-public class DriverMatchingHigheshRatedDriverStrategy implements DriverMatchingStrategy {
+public class DriverMatchingHighestRatedDriverStrategy implements DriverMatchingStrategy {
     @Override
     public List<Driver> findMatchingDriver(RideRequestDto rideRequestDto) {
         return List.of();
