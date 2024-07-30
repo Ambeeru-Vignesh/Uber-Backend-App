@@ -7,7 +7,7 @@ import com.vignesh.project.uber.uberApp.strategies.RideFareCalculationStrategy;
 public class RideFareDefaultFareCalculationStrategy implements RideFareCalculationStrategy {
 
     @Override
-    public double calculateFare(RideRequest rideRequestDto) {
+    public double calculateFare(RideRequest rideRequest) {
         return 0;
     }
 }
