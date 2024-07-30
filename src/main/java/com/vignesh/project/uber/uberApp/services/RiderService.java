@@ -6,11 +6,9 @@ import com.vignesh.project.uber.uberApp.dto.RideRequestDto;
 import com.vignesh.project.uber.uberApp.dto.RiderDto;
 import com.vignesh.project.uber.uberApp.entities.Rider;
 import com.vignesh.project.uber.uberApp.entities.User;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public interface RiderService {
     RideRequestDto requestRide(RideRequestDto rideRequestDto);
 
