@@ -2,13 +2,10 @@ package com.vignesh.project.uber.uberApp.controllers;
 
 import com.vignesh.project.uber.uberApp.dto.RideDto;
 import com.vignesh.project.uber.uberApp.dto.RideStartDto;
-import com.vignesh.project.uber.uberApp.repository.DriverRepository;
 import com.vignesh.project.uber.uberApp.services.DriverService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalTime;
 
 @RestController
 @RequiredArgsConstructor

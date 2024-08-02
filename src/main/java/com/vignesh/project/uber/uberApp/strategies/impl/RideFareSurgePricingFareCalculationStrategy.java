@@ -1,6 +1,5 @@
 package com.vignesh.project.uber.uberApp.strategies.impl;
 
-import com.vignesh.project.uber.uberApp.dto.RideRequestDto;
 import com.vignesh.project.uber.uberApp.entities.RideRequest;
 import com.vignesh.project.uber.uberApp.services.DistanceService;
 import com.vignesh.project.uber.uberApp.strategies.RideFareCalculationStrategy;

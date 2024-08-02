@@ -3,7 +3,6 @@ package com.vignesh.project.uber.uberApp.services.impl;
 import com.vignesh.project.uber.uberApp.services.DistanceService;
 import lombok.Data;
 import org.locationtech.jts.geom.Point;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
