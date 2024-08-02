@@ -4,6 +4,7 @@ import com.vignesh.project.uber.uberApp.dto.DriverDto;
 import com.vignesh.project.uber.uberApp.dto.RideDto;
 import com.vignesh.project.uber.uberApp.dto.RideRequestDto;
 import com.vignesh.project.uber.uberApp.dto.RiderDto;
+import com.vignesh.project.uber.uberApp.entities.Driver;
 import com.vignesh.project.uber.uberApp.entities.RideRequest;
 import com.vignesh.project.uber.uberApp.entities.Rider;
 import com.vignesh.project.uber.uberApp.entities.User;
@@ -14,6 +15,7 @@ import com.vignesh.project.uber.uberApp.repository.RiderRepository;
 import com.vignesh.project.uber.uberApp.services.RiderService;
 import com.vignesh.project.uber.uberApp.strategies.DriverMatchingStrategy;
 import com.vignesh.project.uber.uberApp.strategies.RideFareCalculationStrategy;
+import com.vignesh.project.uber.uberApp.strategies.RideStrategyManager;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,8 +30,7 @@ import java.util.List;
 public class RiderServiceImpl implements RiderService {
 
     private final ModelMapper modelMapper;
-    private final RideFareCalculationStrategy rideFareCalculationStrategy;
-    private final DriverMatchingStrategy driverMatchingStrategy;
+    private final RideStrategyManager rideStrategyManager;
     private final RideRequestRepository rideRequestRepository;
     private final RiderRepository riderRepository;
 
@@ -41,12 +42,13 @@ public class RiderServiceImpl implements RiderService {
         RideRequest rideRequest = modelMapper.map(rideRequestDto, RideRequest.class);
         rideRequest.setRideRequestStatus(RideRequestStatus.PENDING);
 
-        Double fare = rideFareCalculationStrategy.calculateFare(rideRequest);
+        Double fare = rideStrategyManager.rideFareCalculationStrategy().calculateFare(rideRequest);
         rideRequest.setFare(fare);
 
         RideRequest savedRideRequest = rideRequestRepository.save(rideRequest);
 
-        driverMatchingStrategy.findMatchingDriver(rideRequest);
+        List<Driver> drivers = rideStrategyManager
+                .driverMatchingStrategy(rider.getRating()).findMatchingDriver(rideRequest);
 
         return modelMapper.map(savedRideRequest, RideRequestDto.class);
     }
