@@ -1,6 +1,5 @@
 package com.vignesh.project.uber.uberApp.services.impl;
 
-import com.vignesh.project.uber.uberApp.dto.RideRequestDto;
 import com.vignesh.project.uber.uberApp.entities.Driver;
 import com.vignesh.project.uber.uberApp.entities.Ride;
 import com.vignesh.project.uber.uberApp.entities.RideRequest;
@@ -30,11 +29,6 @@ public class RideServiceImpl implements RideService {
     public Ride getRideById(Long rideId) {
         return rideRepository.findById(rideId)
                 .orElseThrow(() -> new ResourceNotFoundException("Ride not found with id: " + rideId));
-
-    }
-
-    @Override
-    public void matchWithDrivers(RideRequestDto rideRequestDto) {
 
     }
 
