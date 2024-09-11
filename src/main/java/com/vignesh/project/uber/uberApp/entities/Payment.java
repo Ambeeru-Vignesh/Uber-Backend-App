@@ -4,11 +4,18 @@ package com.vignesh.project.uber.uberApp.entities;
 import com.vignesh.project.uber.uberApp.entities.enums.PaymentMethod;
 import com.vignesh.project.uber.uberApp.entities.enums.PaymentStatus;
 import jakarta.persistence.*;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@Builder
 public class Payment {
 
     @Id

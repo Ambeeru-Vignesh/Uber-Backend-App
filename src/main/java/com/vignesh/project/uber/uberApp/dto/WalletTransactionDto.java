@@ -2,9 +2,13 @@ package com.vignesh.project.uber.uberApp.dto;
 
 import com.vignesh.project.uber.uberApp.entities.enums.TransactionMethod;
 import com.vignesh.project.uber.uberApp.entities.enums.TransactionType;
+import lombok.Builder;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
+@Data
+@Builder
 public class WalletTransactionDto {
 
     private Long id;
