@@ -9,6 +9,8 @@ import com.vignesh.project.uber.uberApp.exceptions.RuntimeConflictException;
 import com.vignesh.project.uber.uberApp.repository.UserRepository;
 import com.vignesh.project.uber.uberApp.services.AuthService;
 import com.vignesh.project.uber.uberApp.services.RiderService;
+import com.vignesh.project.uber.uberApp.services.WalletService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,7 @@ public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
     private final RiderService riderService;
+    private final WalletService walletService;
 
     @Override
     public String login(String email, String password) {
@@ -29,6 +32,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    @Transactional
     public UserDto signup(SignupDto signupDto) {
         User user = userRepository.findByEmail(signupDto.getEmail()).orElse(null);
         if (user != null)
@@ -38,6 +42,7 @@ public class AuthServiceImpl implements AuthService {
         mappedUser.setRoles(Set.of(Role.RIDER));
         User savedUser = userRepository.save(mappedUser);
         riderService.createNewRider(savedUser);
+        walletService.createNewWallet(savedUser);
 
         return modelMapper.map(savedUser, UserDto.class);
 
