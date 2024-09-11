@@ -4,14 +4,14 @@ import com.vignesh.project.uber.uberApp.dto.DriverDto;
 import com.vignesh.project.uber.uberApp.dto.RideDto;
 import com.vignesh.project.uber.uberApp.dto.RideRequestDto;
 import com.vignesh.project.uber.uberApp.dto.RiderDto;
-import com.vignesh.project.uber.uberApp.entities.Driver;
-import com.vignesh.project.uber.uberApp.entities.RideRequest;
-import com.vignesh.project.uber.uberApp.entities.Rider;
-import com.vignesh.project.uber.uberApp.entities.User;
+import com.vignesh.project.uber.uberApp.entities.*;
 import com.vignesh.project.uber.uberApp.entities.enums.RideRequestStatus;
+import com.vignesh.project.uber.uberApp.entities.enums.RideStatus;
 import com.vignesh.project.uber.uberApp.exceptions.ResourceNotFoundException;
 import com.vignesh.project.uber.uberApp.repository.RideRequestRepository;
 import com.vignesh.project.uber.uberApp.repository.RiderRepository;
+import com.vignesh.project.uber.uberApp.services.DriverService;
+import com.vignesh.project.uber.uberApp.services.RideService;
 import com.vignesh.project.uber.uberApp.services.RiderService;
 import com.vignesh.project.uber.uberApp.strategies.DriverMatchingStrategy;
 import com.vignesh.project.uber.uberApp.strategies.RideFareCalculationStrategy;
@@ -33,7 +33,8 @@ public class RiderServiceImpl implements RiderService {
     private final RideStrategyManager rideStrategyManager;
     private final RideRequestRepository rideRequestRepository;
     private final RiderRepository riderRepository;
-
+    private final RideService rideService;
+    private final DriverService driverService;
 
     @Override
     @Transactional
@@ -55,7 +56,21 @@ public class RiderServiceImpl implements RiderService {
 
     @Override
     public RideDto cancelRide(Long rideId) {
-        return null;
+        Rider rider = getCurrentRider();
+        Ride ride = rideService.getRideById(rideId);
+
+        if(!rider.equals(ride.getRider())){
+            throw new RuntimeException(("Rider does not own this ride with id: "+rideId));
+        }
+
+        if(!ride.getRideStatus().equals(RideStatus.CONFIRMED)){
+            throw new RuntimeException(("Rider does not own this ride with id: "+rideId));
+        }
+
+        Ride savedRide = rideService.updateRideStatus(ride, RideStatus.CANCELLED);
+        driverService.updateDriverAvailability(ride.getDriver(), true);
+
+        return modelMapper.map(savedRide, RideDto.class);
     }
 
     @Override

@@ -25,4 +25,6 @@ public interface DriverService {
     List<RideDto> getAllMyRides();
 
     Driver getCurrentDriver();
+
+    Driver updateDriverAvailability(Driver driver, boolean available);
 }
