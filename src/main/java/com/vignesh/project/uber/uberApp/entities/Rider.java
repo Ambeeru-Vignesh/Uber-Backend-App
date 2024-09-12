@@ -1,6 +1,5 @@
 package com.vignesh.project.uber.uberApp.entities;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 
