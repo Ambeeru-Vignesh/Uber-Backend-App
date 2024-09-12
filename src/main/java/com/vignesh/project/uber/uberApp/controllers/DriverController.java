@@ -1,7 +1,9 @@
 package com.vignesh.project.uber.uberApp.controllers;
 
+import com.vignesh.project.uber.uberApp.dto.DriverDto;
 import com.vignesh.project.uber.uberApp.dto.RideDto;
 import com.vignesh.project.uber.uberApp.dto.RideStartDto;
+import com.vignesh.project.uber.uberApp.dto.RiderDto;
 import com.vignesh.project.uber.uberApp.services.DriverService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -30,4 +32,8 @@ public class DriverController {
         return ResponseEntity.ok(driverService.endRide(rideId));
     }
 
+    @GetMapping("/getMyProfile")
+    public ResponseEntity<DriverDto> getMyProfile() {
+        return ResponseEntity.ok(driverService.getMyProfile());
+    }
 }
