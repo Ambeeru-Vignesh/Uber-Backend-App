@@ -32,6 +32,7 @@ public class DriverController {
         return ResponseEntity.ok(driverService.endRide(rideId));
     }
 
+
     @GetMapping("/getMyProfile")
     public ResponseEntity<DriverDto> getMyProfile() {
         return ResponseEntity.ok(driverService.getMyProfile());

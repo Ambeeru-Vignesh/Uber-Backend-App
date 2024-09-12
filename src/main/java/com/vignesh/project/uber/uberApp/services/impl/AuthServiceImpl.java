@@ -49,7 +49,9 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public DriverDto onboardNewDriver(Long userId) {
+    public DriverDto onboardNewDriver(Long userId, String vehicleId) {
         return null;
     }
+
+
 }
